@@ -1,0 +1,193 @@
+/*
+ * "Jaheira Recast" for Siege of Dragonspear
+ * AstroBryGuy
+ *
+*/
+
+/* Backup folder */
+BACKUP ~jaheirarecast/backup~
+
+AUTHOR ~AstroBryGuy~
+
+/* enable all error messages; nothing suppressed. comment this out for release version */
+MODDER
+
+VERSION ~v1.0~
+
+README ~jaheirarecast/readme.md~
+
+ALWAYS
+	INCLUDE ~jaheirarecast/lib/project_macros.tpa~   /* adds macros callable by each component */
+
+	/* STATE.IDS patching - thanks, Cam, if you read it */
+	/* adds custom IsValidForPartyDialogue state */
+	APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~ UNLESS ~CD_STATE_NOTVALID~
+END
+
+AUTO_TRA ~jaheirarecast/tra/%s~
+LANGUAGE ~English~ ~English~ ~jaheirarecast/tra/english/setup-jaheirarecast.tra~
+
+BEGIN @1 /* Use new SoD Character Sounds */
+	SUBCOMPONENT @0  /* Jaheira Recast: Character Sounds */
+	REQUIRE_PREDICATE GAME_IS ~bgee~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~bd0010.are~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	/* Replace condition with GAME_IS ~sod~ when WeiDU v240 is released */
+	
+COPY_EXISTING ~jaheir7.cre~ ~override~
+	LAUNCH_PATCH_MACRO ~source_cre_sound_cleanup~
+	SAY BATTLE_CRY1 		#67915 // Nature guides my hand!
+	SAY BATTLE_CRY2 		#67916 // For balance!
+	SAY BATTLE_CRY3 		#67917 // The worms shall feast on thee!
+	SAY BATTLE_CRY4 		#67918 // At them!
+	SAY BATTLE_CRY5 		#67919 // The end comes to you!
+	SAY LEADER 				#67920 // I am surprised and pleased by this decision. I shall lead us well.
+	SAY TIRED 				#67921 // Everything in nature sleeps. We should as well.
+	SAY BORED 				#67922 // We have much to do, and waste time standing here.
+	SAY HURT 				#67923 // My life force ebbs... I need healing.
+	SAY SELECT_COMMON1 		#67924 // Hm?
+	SAY SELECT_COMMON2 		#67925 // What is the task?
+	SAY SELECT_COMMON3 		#67926 // Yes?
+	SAY SELECT_COMMON4 		#67927 // Am I needed?
+	SAY SELECT_COMMON5 		#67928 // I'm here.
+	SAY SELECT_COMMON6 		#67929 // Now what?
+	SAY SELECT_ACTION1 		#67930 // If it will help.
+//	SAY SELECT_ACTION2 		#67931 // I see.
+//	SAY SELECT_ACTION3 		#67932 // Yes.
+	SAY SELECT_ACTION2 		#67933 // It's done.
+//	SAY SELECT_ACTION5 		#67934 // I will.
+	SAY SELECT_ACTION3 		#67935 // At once.
+//	SAY SELECT_ACTION7 		#67936 // Aye.
+	SAY DAMAGE 				#67937 // Ugh!
+	SAY DYING 				#67938 // My circle closes.
+	SAY AREA_FOREST 		#67939 // Outdoors, I feel as if I could one day find peace.
+	SAY AREA_CITY 			#67940 // These buildings are nature's gravestones. I say we tear them all down.
+	SAY AREA_DUNGEON 		#67941 // The strangest and wildest creatures live beneath the earth. Tread softly through their domain.
+	SAY AREA_DAY 			#67942 // Dawn breaks, and the sun wakens all life.
+	SAY AREA_NIGHT 			#67943 // In night's stillness, prey crawls into their burrows to sleep and predators set out to hunt.
+	SAY SELECT_ACTION4 		#67944 // This would be a good place for a henge!
+	SAY SELECT_ACTION5 		#67945 // I rule my life like a bird in flight.
+	SAY SELECT_ACTION6 		#67946 // Sometimes, it is hard to stay truly neutral when the people around me are such idiots.
+	SAY SELECT_ACTION7 		#67947 // Nature never betrays the heart that loves her, but it kicks the stuffing out of everyone else.
+	SAY SELECT_RARE1 		#67944 // Same as SELECT_ACTION4
+	SAY SELECT_RARE2 		#67947 // Same as SELECT_ACTION7
+	SAY CRITICAL_HIT 		#67948 // Suffer nature's wrath!
+	SAY CRITICAL_MISS 		#67949 // For every hit, a miss.
+	SAY TARGET_IMMUNE 		#67950 // I cannot hurt this enemy. I must try something else.
+	SAY INVENTORY_FULL 		#67951 // I'm not here to carry your bags. I dropped it.
+	SAY PICKED_POCKET 		#67952 // This is mine now.
+	SAY HIDDEN_IN_SHADOWS 	#67953 // Camouflaged.
+	SAY SPELL_DISRUPTED 	#67954 // My magic fails!
+	SAY SET_A_TRAP 			#67955 // A snare is laid.
+	SAY HAPPY 				#67956 // Our actions please me so far. Keep acting as you have and I shall find little fault.
+	SAY UNHAPPY_ANNOYED 	#67957 // Our balance is disrupted. YOU must do better.
+	SAY UNHAPPY_SERIOUS 	#67958 // We slide farther and farther from the center. Our group cannot last long if we continue this way.
+	SAY UNHAPPY_BREAKING 	#67959 // That is enough! We are clearly at odds and cannot work together. I shall go my own way.
+	SAY MORALE 				#67960 // My time is not yet come!
+	/* Note BD67961.wav and BD67962.wav are missing from SoDVO.BIF. */
+//	SAY REACT_TO_DIE_GENERAL #67961 // No sorrow for those lost in righteous battles.
+//	SAY REACT_TO_DIE_SPECIFIC #67962 // Blast it, Khalid! You die, and I—I swear you'll never hear the end of it!
+	SAY REACT_TO_DIE_SPECIFIC @100 // ~Khalid, no! Please, I cannot lose you!~ 
+BUT_ONLY
+
+EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_sod.baf~ 
+	USING ~jaheirarecast/tra/english/setup-jaheirarecast.tra~ 
+
+COPY ~jaheirarecast/wav/ayjahrds.wav~ ~override~
+
+
+BEGIN @2 /* Use BG1+BG2 Character Sounds */
+	SUBCOMPONENT @0  /* Jaheira Recast: Character Sounds */
+	REQUIRE_PREDICATE GAME_IS ~bgee~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~bd0010.are~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	/* Replace condition with GAME_IS ~sod~ when WeiDU v240 is released */
+	
+COPY_EXISTING ~jaheir7.cre~ ~override~
+	LAUNCH_PATCH_MACRO ~source_cre_sound_cleanup~
+	SAY MORALE 				#4008 // [JAHEIRA 2] Better to fight this battle when 'tis winnable!
+	SAY HAPPY 				#4010 // [JAHEIRA 4] Perhaps this group needs not quite as much help as I thought.
+	SAY UNHAPPY_ANNOYED 	#4011 // [JAHEIRA 5] I don't like the way this group is turning out. Better leadership might help.
+	SAY UNHAPPY_SERIOUS 	#4012 // [JAHEIRA 6] Decide you well your next move! I'll not allow this to continue!
+	SAY UNHAPPY_BREAKING 	#4013 // [JAHEIRA 7] You have shown your true nature, and we are henceforth enemies!
+	SAY LEADER 				#4014 // [JAHEIRA 8] You couldn't have made a better choice.
+	SAY TIRED 				#4015 // [JAHEIRA 9] I've just about seen enough waking hours, slave-driver.
+	SAY BORED 				#4016 // [JAHEIRA 10] Shouldn't we be doing something USEFUL with this time?!
+	SAY BATTLE_CRY1 		#4009 // [JAHEIRA 3] For the fallen!
+	SAY BATTLE_CRY2 		@200 // ~Fall creature! And feed the earth!~ [ayjahbc2]
+	SAY BATTLE_CRY3 		@201 // ~Nature, take the life she gave!~ [ayjahbc3]
+	SAY DAMAGE 				#5353 // [JAHEIRA 38] 
+	SAY DYING 				#5354 // [JAHEIRA 39] 
+	SAY HURT 				#4017 // [JAHEIRA 11] I fear I need healing... lest I not survive.
+	SAY AREA_FOREST 		#4018 // [JAHEIRA 12] Tread lightly. You must show respect in nature's house.
+	SAY AREA_CITY 			#4019 // [JAHEIRA 13] This city is a blight on the landscape. Better to have let the land grow wild.
+	SAY AREA_DUNGEON 		#4020 // [JAHEIRA 14] An open wound in Mother Earth. I would plug it, had I the power.
+	SAY AREA_DAY 			@202 // ~I welcome each day we see.~ [ayjahady]
+	SAY AREA_NIGHT 			#4021 // [JAHEIRA 16] Darkness falls, and nature sleeps. Why do we still tromp about?!
+	SAY SELECT_COMMON1 		#4022 // [JAHEIRA 17] Nature's servant awaits.
+	SAY SELECT_COMMON2 		#4023 // [JAHEIRA 18] Yes, oh omnipresent authority figure?
+	SAY SELECT_COMMON3 		#4024 // [JAHEIRA 19] You've a task?
+	SAY SELECT_COMMON4 		@203 // ~Yes?~ [ayjahsc4]
+	SAY SELECT_COMMON5 		@204 // ~I am ready.~ [ayjahsc5]
+	SAY SELECT_COMMON6 		@205 // ~Speak your mind.~ [ayjahsc6]
+	SAY SELECT_ACTION1 		#4025 // [JAHEIRA 20] For the group.
+	SAY SELECT_ACTION2 		#4026 // [JAHEIRA 21] As you direct.
+	SAY SELECT_ACTION3 		#4027 // [JAHEIRA 22] 'Tis good as done.
+	SAY SELECT_ACTION4 		#4028 // [JAHEIRA 23] Ah, what now? Need your pantaloons pressed?!
+	SAY SELECT_ACTION5 		#4029 // [JAHEIRA 24] By your command.
+	SAY SELECT_ACTION6 		#4030 // [JAHEIRA 25] This would be a good place for a henge!
+	SAY SELECT_ACTION7 		#4031 // [JAHEIRA 26] If a tree falls in the forest... I'll kill the bastard what done it!
+	SAY REACT_TO_DIE_GENERAL #4043 // No sorrow for those lost in righteous battles.
+	SAY REACT_TO_DIE_SPECIFIC #4044 // Blast it, Khalid! You die, and I—I swear you'll never hear the end of it!
+	SAY SELECT_RARE1 		#4030 // [JAHEIRA 25] This would be a good place for a henge!
+	SAY SELECT_RARE2 		#4031 // [JAHEIRA 26] If a tree falls in the forest... I'll kill the bastard what done it!
+	SAY CRITICAL_HIT 		@206 // ~With vengeance!~ [ayjahcrt]
+	SAY CRITICAL_MISS 		@207 // ~Argh!~ [ayjahcrm]
+	SAY TARGET_IMMUNE 		@208 // ~Weapon has no effect!~ [ayjahimm]
+	SAY INVENTORY_FULL 		@209 // ~I have too much in my pack as it is. You'll have to pick that up off the ground.~ [ayjahinv]
+	SAY SPELL_DISRUPTED 	@210 // ~My concentration is undone. My spell has failed!~ [ayjahspf]
+BUT_ONLY
+
+EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_bg1bg2.baf~ 
+	USING ~jaheirarecast/tra/english/setup-jaheirarecast.tra~ 
+
+COPY ~jaheirarecast/wav/ayjahady.wav~ ~override~
+	~jaheirarecast/wav/ayjahbc2.wav~ ~override~
+	~jaheirarecast/wav/ayjahbc3.wav~ ~override~
+	~jaheirarecast/wav/ayjahcrm.wav~ ~override~
+	~jaheirarecast/wav/ayjahcrt.wav~ ~override~
+	~jaheirarecast/wav/ayjahimm.wav~ ~override~
+	~jaheirarecast/wav/ayjahinv.wav~ ~override~
+	~jaheirarecast/wav/ayjahsc4.wav~ ~override~
+	~jaheirarecast/wav/ayjahsc5.wav~ ~override~
+	~jaheirarecast/wav/ayjahsc6.wav~ ~override~
+	~jaheirarecast/wav/ayjahspf.wav~ ~override~
+
+BEGIN @3 /* Jaheira Recast: Dialog Voiceover */
+	REQUIRE_PREDICATE GAME_IS ~bgee~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~bd0010.are~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	/* Replace condition with GAME_IS ~sod~ when WeiDU v240 is released */
+
+ACTION_FOR_EACH stridx IN 36850 39006 39277 39340 39398 39739 39781 39798 39799 39800 39801 40122 40197 40327 40953 41517 41554 41577 41666 41704 41706 42314 42319 42323 42337 42344 42375 42434 44300 47215 48069 48071 48203 48232 50790 50794 50806 51140 57073 57088 57093 57102 57120 57959 58092 58706 60621 60630 60631 61100 61427 64016 64018 64020 64045 64974 65486 65654 66302 66309 66313 66323 68347 68353 68368 68372 68390 68402 69644 BEGIN
+	ACTION_GET_STRREF %stridx% dialogstring
+	STRING_SET_EVALUATE ~%stridx%~ ~%dialogstring%~ [bd%stridx%]
+END
+
+/* 41593 is voiced, but the VO does not match the text.
+STRING_SET_EVALUATE 41593 @41593
+*/
+
+BEGIN @4 /* Jaheira Recast: Give Jaheira her BG2 Portrait */
+	REQUIRE_PREDICATE GAME_IS ~bgee~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~bd0010.are~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
+	/* Replace condition with GAME_IS ~sod~ when WeiDU v240 is released */
+
+ACTION_FOR_EACH jaheira IN jaheir jaheir2 jaheir4 jaheir6 jaheir7 BEGIN
+	ACTION_IF FILE_EXISTS_IN_GAME "%jaheira%.cre" BEGIN
+		COPY_EXISTING ~%jaheira%.CRE~ ~override~
+      		PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN // protects against invalid files
+        		WRITE_ASCII 0x34 ~njaheirm~ #8 // small portrait
+        		WRITE_ASCII 0x3c ~njaheirl~ #8 // large portrait
+        	END
+        BUT_ONLY
+    END
+END
+
