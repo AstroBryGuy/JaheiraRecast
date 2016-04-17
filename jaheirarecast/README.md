@@ -59,6 +59,10 @@ REDISTRIBUTION NOTE: Jaheira Recast was created to be freely enjoyed by all Bald
 
 ## Version History
 
+Version 1.1 - April 17, 2016
+
+- Added VO lines for script-banters
+
 Version 1 - April 10, 2016
 
 - Initial upload
