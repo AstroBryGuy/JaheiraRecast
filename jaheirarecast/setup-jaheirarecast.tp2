@@ -175,8 +175,7 @@ END
 STRING_SET_EVALUATE 41593 @41593
 */
 /* 59445 is voiced, but the VO does not match the text. */
-STRING_SET_EVALUATE 59445 @59445
-*/
+STRING_SET_EVALUATE ~59445~ @59445
 
 
 BEGIN @4 /* Jaheira Recast: Give Jaheira her BG2 Portrait */
