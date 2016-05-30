@@ -52,17 +52,21 @@ To the Beamdog team - Thanks for giving us the Enhanced Editions and now Siege O
 
 To the BG Modding community - you rock! Without you, we wouldn't have the tools to create mods or the examples you have set for other modders to follow. Thanks!
 
-Jaheira Recast is not developed, supported, or endorsed by Beamdog or Wizards of the Coast. All images, sounds, and contents of this mod are copyright Beamdog or Wizards of the Coast.
+Jaheira Recast is not developed, supported, or endorsed by Beamdog or Wizards of the Coast.
 
-REDISTRIBUTION NOTE: Jaheira Recast was created to be freely enjoyed by all Baldur's Gate gamers. Jaheira Recast, however, may not be sold, published, compiled or redistributed in any form without the consent of its authors.
+## License
 
+The .tp2 code ONLY is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+
+All images, sounds, and game text used by this mod are copyright Beamdog or Wizards of the Coast.
 
 ## Version History
 
-Version 1.1 - April 17, 2016
+Version 1.2 - May 30, 2016
+* Fixed issue with blanking Jaheira's biography
 
-- Added VO lines for script-banters
+Version 1.1 - April 17, 2016
+* Added VO lines for script-banters
 
 Version 1 - April 10, 2016
-
-- Initial upload
+* Initial upload
