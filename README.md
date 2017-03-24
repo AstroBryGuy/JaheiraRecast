@@ -30,15 +30,17 @@ This component will replace Jaheira's portrait with her BG2 portrait for BGEE an
 
 ## Installation
 
+*Note for Steam/GOG users:* Before installing any mods, you will need to use the [ModMerge](https://forums.beamdog.com/discussion/50441/modmerge-merge-your-steam-gog-zip-based-dlc-into-something-weidu-nearinfinity-dltcep-can-use/p1) utility to make your game moddable.
+
 Note: It is recommended to start a new game, or at least install this mod before starting the SoD campaign.
 
 ### Windows 
-If the mod was previously installed, uninstall it before extracting the new version. Chatty Imoen is packaged and installed with WeiDU. To install, extract the mod archive, then copy of the contents of the archive into your game folder (the folder which contains the chitin.key file). If properly extracted, you should have a "jaheirarecast" folder and setup-jaheirarecast.exe in your game folder. To install, simply double-click setup-jaheirarecast.exe and follow the instructions on screen. 
+If the mod was previously installed, uninstall it before extracting the new version. Jaheira Recast is packaged and installed with WeiDU. To install, extract the mod archive, then copy of the contents of the archive into your game folder (the folder which contains the chitin.key file). If properly extracted, you should have a "jaheirarecast" folder and setup-jaheirarecast.exe in your game folder. To install, simply double-click setup-jaheirarecast.exe and follow the instructions on screen. 
 
-Please run setup-chattyimoen.exe in your game folder to reinstall, uninstall or otherwise change components. 
+Please run setup-jaheirarecast.exe in your game folder to reinstall, uninstall or otherwise change components. 
 
 ### Mac OS X 
-If the mod was previously installed, uninstall it before extracting the new version. Chatty Imoen is packaged and installed with WeiDU. To install, extract the mod archive, then copy of the contents of the folder "OSX-jaheirarecast-v1" into your game folder (the folder which contains the chitin.key file). If properly extracted, you should have a "jaheirarecast" folder, setup-jaheirarecast, and setup-jaheirarecast.command in your game folder. To install, simply double-click setup-jaheirarecast.command and follow the instructions on screen. 
+If the mod was previously installed, uninstall it before extracting the new version. Jaheira Recast is packaged and installed with WeiDU. To install, extract the mod archive, then copy of the contents of the folder "OSX-jaheirarecast-v1" into your game folder (the folder which contains the chitin.key file). If properly extracted, you should have a "jaheirarecast" folder, setup-jaheirarecast, and setup-jaheirarecast.command in your game folder. To install, simply double-click setup-jaheirarecast.command and follow the instructions on screen. 
 
 
 ## Contact Information
@@ -61,6 +63,9 @@ The .tp2 code ONLY is licensed under the Creative Commons Attribution 4.0 Intern
 All images, sounds, and game text used by this mod are copyright Beamdog or Wizards of the Coast.
 
 ## Version History
+
+Version 1.3 - March 24, 2017
+* Fixed an incorrect string reference for #69250.
 
 Version 1.2 - May 30, 2016
 * Fixed issue with blanking Jaheira's biography
