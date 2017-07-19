@@ -1,10 +1,10 @@
 # Jaheira Recast
-A BG:SoD mod by AstroBryGuy
+A BG:SoD/EET mod by AstroBryGuy
 
 
 ## Introduction
 
-Heidi Shannon (the original voice of Jaheira) was unreachable for Siege of Dragonspear, and Beamdog originally cast a new voice actor in the role. Eventually, they decided the new actor was not working out, and left Jaheira's lines unvoiced and her original BG1 soundset. However, many of Jaheira's voiced lines and almost all of her soundset are included in the SoD files. This mod reconnects those files to the dialog lines and gives Jaheira's soundset an SoD update like the other returning NPCs.
+Heidi Shannon (the original voice of Jaheira) was unreachable for Siege of Dragonspear and Beamdog originally cast a new voice actor in the role. Eventually, they decided the new actor was not working out, and left Jaheira's lines unvoiced and her original BG1 soundset. However, many of Jaheira's voiced lines and almost all of her soundset are included in the SoD files. This mod reconnects those files to the dialog lines and gives Jaheira's soundset an SoD update like the other returning NPCs.
 
 
 ## Components
@@ -63,6 +63,9 @@ The .tp2 code ONLY is licensed under the Creative Commons Attribution 4.0 Intern
 All images, sounds, and game text used by this mod are copyright Beamdog or Wizards of the Coast.
 
 ## Version History
+
+Version 2.0 - July 19, 2017
+* Adds EET support
 
 Version 1.3 - March 24, 2017
 * Fixed an incorrect string reference for #69250.
