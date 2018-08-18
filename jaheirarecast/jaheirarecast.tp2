@@ -12,9 +12,9 @@ AUTHOR ~AstroBryGuy~
 /* enable all error messages; nothing suppressed. comment this out for release version */
 MODDER
 
-VERSION ~v2.0~
+VERSION ~v3.0~
 
-README ~jaheirarecast/readme.md~
+README ~jaheirarecast/readme.html~
 
 ALWAYS
 	INCLUDE ~jaheirarecast/lib/project_macros.tpa~   /* adds macros callable by each component */
@@ -22,7 +22,7 @@ ALWAYS
 	/* STATE.IDS patching - thanks, Cam, if you read it */
 	/* adds custom IsValidForPartyDialogue state */
 	APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~ UNLESS ~CD_STATE_NOTVALID~
-	
+
 	/* EET dialog offset for BGEE/SOD dialogs */
 	ACTION_IF GAME_IS ~eet~ THEN BEGIN
 		OUTER_SET eet_offset = 200000
@@ -30,7 +30,7 @@ ALWAYS
 	END ELSE BEGIN
 		OUTER_SET eet_offset = 0
 		OUTER_SPRINT "eet_var" ""
-	END 
+	END
 END
 
 AUTO_TRA ~jaheirarecast/tra/%s~
@@ -40,7 +40,13 @@ BEGIN @1 /* Use new SoD Character Sounds */
 	SUBCOMPONENT @0  /* Jaheira Recast: Character Sounds */
 	REQUIRE_PREDICATE GAME_IS ~bgee eet~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
 	REQUIRE_PREDICATE GAME_INCLUDES ~sod~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
-	
+
+ACTION_FOR_EACH stridx IN 67915 67916 67917 67918 67919 67920 67921 67922 67923 67924 67925 67926 67927 67928 67929 67930 67931 67932 67933 67934 67935 67936 67937 67938 67939 67940 67941 67942 67943 67944 67945 67946 67947 67948 67949 67950 67951 67952 67953 67954 67955 67956 67957 67958 67959 67960 BEGIN
+	ACTION_IF !(FILE_EXISTS_IN_GAME ~bd%stridx%.wav~) THEN BEGIN
+		COPY ~jaheirarecast/wav/bd%stridx%.wav~ ~override~
+	END
+END
+
 COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	LAUNCH_PATCH_MACRO ~source_cre_sound_cleanup~
 	WRITE_LONG BATTLE_CRY1 			(%eet_offset% + 67915) // Nature guides my hand!
@@ -59,12 +65,12 @@ COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	WRITE_LONG SELECT_COMMON5 		(%eet_offset% + 67928) // I'm here.
 	WRITE_LONG SELECT_COMMON6 		(%eet_offset% + 67929) // Now what?
 	WRITE_LONG SELECT_ACTION1 		(%eet_offset% + 67930) // If it will help.
-//	WRITE_LONG SELECT_ACTION2 		(%eet_offset% + 67931) // I see.
-//	WRITE_LONG SELECT_ACTION3 		(%eet_offset% + 67932) // Yes.
-	WRITE_LONG SELECT_ACTION2 		(%eet_offset% + 67933) // It's done.
-//	WRITE_LONG SELECT_ACTION5 		(%eet_offset% + 67934) // I will.
+//	WRITE_LONG SELECT_ACTION1 		(%eet_offset% + 67931) // I see.
+//	WRITE_LONG SELECT_ACTION1 		(%eet_offset% + 67932) // Yes.
+//	WRITE_LONG SELECT_ACTION2 		(%eet_offset% + 67933) // It's done.
+	WRITE_LONG SELECT_ACTION2 		(%eet_offset% + 67934) // I will.
 	WRITE_LONG SELECT_ACTION3 		(%eet_offset% + 67935) // At once.
-//	WRITE_LONG SELECT_ACTION7 		(%eet_offset% + 67936) // Aye.
+//	WRITE_LONG SELECT_ACTION3 		(%eet_offset% + 67936) // Aye.
 	WRITE_LONG DAMAGE 				(%eet_offset% + 67937) // Ugh!
 	WRITE_LONG DYING 				(%eet_offset% + 67938) // My circle closes.
 	WRITE_LONG AREA_FOREST 			(%eet_offset% + 67939) // Outdoors, I feel as if I could one day find peace.
@@ -94,11 +100,17 @@ COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	/* Note BD67961.wav and BD67962.wav are missing from SoDVO.BIF. */
 //	WRITE_LONG REACT_TO_DIE_GENERAL (%eet_offset% + 67961) // No sorrow for those lost in righteous battles.
 //	WRITE_LONG REACT_TO_DIE_SPECIFIC (%eet_offset% + 67962) // Blast it, Khalid! You die, and I—I swear you'll never hear the end of it!
-	SAY REACT_TO_DIE_SPECIFIC 		@100 // ~Khalid, no! Please, I cannot lose you!~ 
+	SAY REACT_TO_DIE_SPECIFIC 		@100 // ~Khalid, no! Please, I cannot lose you!~
 BUT_ONLY
 
-EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_sod.baf~ 
-	USING ~jaheirarecast/tra/english/setup.tra~ 
+EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_sod.baf~
+	PATCH_IF GAME_IS ~eet~ THEN BEGIN
+		TEXT_SPRINT eetoff ~2~
+	END ELSE BEGIN
+		TEXT_SPRINT eetoff ~~
+	END
+	EVALUATE_BUFFER
+	USING ~jaheirarecast/tra/english/setup.tra~
 
 COPY ~jaheirarecast/wav/ayjahrds.wav~ ~override~
 
@@ -107,7 +119,7 @@ BEGIN @2 /* Use BG1+BG2 Character Sounds */
 	SUBCOMPONENT @0  /* Jaheira Recast: Character Sounds */
 	REQUIRE_PREDICATE GAME_IS ~bgee eet~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
 	REQUIRE_PREDICATE GAME_INCLUDES ~sod~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
-	
+
 COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	LAUNCH_PATCH_MACRO ~source_cre_sound_cleanup~
 	WRITE_LONG MORALE				(%eet_offset% + 4008) // [JAHEIRA 2] Better to fight this battle when 'tis winnable!
@@ -121,8 +133,8 @@ COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	WRITE_LONG BATTLE_CRY1			(%eet_offset% + 4009) // [JAHEIRA 3] For the fallen!
 	SAY BATTLE_CRY2 				@200 // ~Fall creature! And feed the earth!~ [ayjahbc2]
 	SAY BATTLE_CRY3 				@201 // ~Nature, take the life she gave!~ [ayjahbc3]
-	WRITE_LONG DAMAGE				(%eet_offset% + 5353) // [JAHEIRA 38] 
-	WRITE_LONG DYING				(%eet_offset% + 5354) // [JAHEIRA 39] 
+	WRITE_LONG DAMAGE				(%eet_offset% + 5353) // [JAHEIRA 38]
+	WRITE_LONG DYING				(%eet_offset% + 5354) // [JAHEIRA 39]
 	WRITE_LONG HURT					(%eet_offset% + 4017) // [JAHEIRA 11] I fear I need healing... lest I not survive.
 	WRITE_LONG AREA_FOREST			(%eet_offset% + 4018) // [JAHEIRA 12] Tread lightly. You must show respect in nature's house.
 	WRITE_LONG AREA_CITY			(%eet_offset% + 4019) // [JAHEIRA 13] This city is a blight on the landscape. Better to have let the land grow wild.
@@ -153,8 +165,14 @@ COPY_EXISTING ~jaheir7%eet_var%.cre~ ~override~
 	SAY SPELL_DISRUPTED 			@210 // ~My concentration is undone. My spell has failed!~ [ayjahspf]
 BUT_ONLY
 
-EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_bg1bg2.baf~ 
-	USING ~jaheirarecast/tra/english/setup.tra~ 
+EXTEND_TOP ~bdjaheir.bcs~ ~jaheirarecast/baf/ayjaheir_bg1bg2.baf~
+	PATCH_IF GAME_IS ~eet~ THEN BEGIN
+		TEXT_SPRINT eetoff ~20~
+	END ELSE BEGIN
+		TEXT_SPRINT eetoff ~~
+	END
+	EVALUATE_BUFFER
+	USING ~jaheirarecast/tra/english/setup.tra~
 
 COPY ~jaheirarecast/wav/ayjahady.wav~ ~override~
 	~jaheirarecast/wav/ayjahbc2.wav~ ~override~
@@ -172,7 +190,10 @@ BEGIN @3 /* Jaheira Recast: Dialog Voiceover */
 	REQUIRE_PREDICATE GAME_IS ~bgee eet~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
 	REQUIRE_PREDICATE GAME_INCLUDES ~sod~ @5 /* You must have Baldur's Gate: Siege of Dragonspear installed. */
 
-ACTION_FOR_EACH stridx IN 36850 39006 39108 39277 39340 39398 39739 39781 39798 39799 39800 39801 40122 40197 40327 40953 41517 41554 41577 41666 41704 41706 42314 42319 42323 42337 42344 42375 42434 44233 44300 45995 47209 47215 47240 48069 48071 48203 48232 50790 50794 50806 51140 57073 57088 57093 57102 57120 57959 58092 58706 58917 58919 58994 58996 59000 59061 59063 59065 59139 59141 59144 59146 59203 59205 59254 59256 59258 59290 59292 59294 59328 59340 59371 59392 59397 59399 59436 59438 59441 59445 59447 59455 59457 59472 60153 60170 60621 60630 60631 61100 61427 64016 64018 64020 64045 64974 65486 65654 66302 66309 66313 66323 67339 68347 68353 68368 68372 68390 68402 69242 69243 69244 69245 69246 69247 69250 69251 69252 69253 69644 BEGIN
+ACTION_FOR_EACH stridx IN 36850 39006 39108 39277 39340 39398 39739 39781 39798 39799 39800 39801 40122 40197 40327 40953 41517 41554 41577 41666 41704 41706 42314 42319 42323 42337 42344 42375 42434 44233 44300 45995 47209 47215 47240 48069 48071 48203 48232 50790 50794 50806 51140 51922 57073 57088 57093 57102 57120 57959 58092 58706 58917 58919 58994 58996 59000 59061 59063 59065 59139 59141 59144 59146 59203 59205 59254 59256 59258 59290 59292 59294 59328 59340 59371 59392 59397 59399 59436 59438 59441 59447 59455 59457 59472 60153 60170 60621 60630 60631 61100 61427 64016 64018 64020 64045 64921 64974 65486 65654 66302 66309 66313 66323 67339 68347 68353 68368 68372 68390 68402 69242 69243 69244 69245 69246 69247 69250 69251 69252 69253 69644 BEGIN
+	ACTION_IF !(FILE_EXISTS_IN_GAME ~bd%stridx%.wav~) THEN BEGIN
+		COPY ~jaheirarecast/wav/bd%stridx%.wav~ ~override~
+	END
 	ACTION_GET_STRREF (%eet_offset% + %stridx%) dialogstring
 	STRING_SET_EVALUATE (%eet_offset% + %stridx%) ~%dialogstring%~ [bd%stridx%]
 END
@@ -181,6 +202,9 @@ END
 STRING_SET_EVALUATE (%eet_offset% + 41593) @41593
 */
 /* 59445 is voiced, but the VO does not match the text. */
+ACTION_IF !(FILE_EXISTS_IN_GAME ~bd59445.wav~) THEN BEGIN
+	COPY ~jaheirarecast/wav/bd59445.wav~ ~override~
+END
 STRING_SET_EVALUATE (%eet_offset% + 59445) @59445
 
 
